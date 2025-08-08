@@ -12,11 +12,16 @@ function setup() {
     textSize(32);
     textAlign(CENTER, CENTER);
     text('Cinema', width / 2, height / 2);
+
+
+
+    
 }
 
 
 function windowResized() {
     setup(); // recalculate canvas when screen resizes
+    settingScreen();
 }
 
 function draw(){
@@ -31,10 +36,20 @@ function settingScreen(){
         settingH = windowHeight;
         settingW = settingH * 4 / 3;
     }
+
     fill('white');
     noStroke();
     rect( 20, 20,settingW - 40,settingH - 40, 20);
+    fill('black');
     
+    //fill('red');
+    //noStroke();
+    //rect (55 , 30 , settingW / 16 ,settingH / 12 , 20);
+
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('All Your Base Are Belong TO Us', settingW / 2 , settingH / 2);
    
 
 }
+
