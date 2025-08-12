@@ -1,4 +1,35 @@
 
+let baseWidth = 800;
+let baseHeight = 600;
+let canvasWidth, canvasHeight;
+let scaleSize;
+
+function setup () {
+   canvasFourThreeRatio();
+}
+
+function canvasFourThreeRatio(){
+     // calculate 4:3 aspect ratio that fits within the window
+        canvasWidth = windowWidth,
+        canvasHeight = canvasWidth * (baseHeight / baseWidth);
+    
+    if (canvasHeight> windowHeight) {
+        canvasHeight = windowHeight;
+        canvasWidth  = canvasHeight * (baseWidth / baseHeight);
+    }
+
+    createCanvas(canvasWidth,canvasHeight).position((windowWidth - canvasWidth) / 2, (windowHeight - canvasHeight) / 2);;
+}
+
+
+function draw(){
+    background(255);
+}
+
+function windowResized(){
+    canvasFourThreeRatio();
+}
+/* 
 function setup() {
     // calculate 4:3 aspect ratio that fits within the window
     let w = windowWidth,
@@ -15,18 +46,16 @@ function setup() {
 
 
 
-    
+    settingScreen();
 }
 
 
 function windowResized() {
     setup(); // recalculate canvas when screen resizes
-    settingScreen();
+    
 }
 
-function draw(){
-    settingScreen();
-}
+
 
 function settingScreen(){
     let settingW , settingH;
@@ -37,19 +66,18 @@ function settingScreen(){
         settingW = settingH * 4 / 3;
     }
 
+
     fill('white');
     noStroke();
     rect( 20, 20,settingW - 40,settingH - 40, 20);
     fill('black');
     
-    //fill('red');
-    //noStroke();
-    //rect (55 , 30 , settingW / 16 ,settingH / 12 , 20);
-
-    textSize(32);
+    let fontSize = 32 * (settingW/settingH);
+    textSize(fontSize);
     textAlign(CENTER, CENTER);
     text('All Your Base Are Belong TO Us', settingW / 2 , settingH / 2);
    
 
 }
 
+*/
