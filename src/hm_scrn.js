@@ -1,11 +1,27 @@
-
 let baseWidth = 800;
 let baseHeight = 600;
 let canvasWidth, canvasHeight;
 let scaleSize;
+let settingPagePop = true;
+let backgroundImage;
 
-function setup () {
-   canvasFourThreeRatio();
+function preload(){
+    backgroundImage = loadImage("assets/test_images/test_sprite_bg.png");
+}
+
+function setup () { // functions that want to be setup and loaded first will go here
+   canvasFourThreeRatio();  
+    
+}
+
+
+function draw(){ //functions and designs will be placed here
+    background(255);
+    image(backgroundImage, 0 , 0, canvasWidth, canvasHeight);
+
+    if (settingPagePop == false){
+    settingsPage();
+    }
 }
 
 function canvasFourThreeRatio(){
@@ -18,66 +34,34 @@ function canvasFourThreeRatio(){
         canvasWidth  = canvasHeight * (baseWidth / baseHeight);
     }
 
-    createCanvas(canvasWidth,canvasHeight).position((windowWidth - canvasWidth) / 2, (windowHeight - canvasHeight) / 2);;
+    createCanvas(canvasWidth,canvasHeight).position((windowWidth - canvasWidth) / 2, (windowHeight - canvasHeight) / 2); 
 }
 
 
-function draw(){
-    background(255);
+
+function settingsPage(){
+   
+    fill(100);
+    rect(10, 10, canvasWidth - 20, canvasHeight - 20);
+    fill(0);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('ManCine', width / 2, height / 2);
+
+    scaleSize = canvasWidth / baseWidth;
+    push(); //not sure yet
+    scale(scaleSize);
+    fill(200);
+    rect(20, 20, 200 , 200);
+    textSize(12);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text('Hello here', 200 / 2 , 200 / 2);
+    pop();
 }
 
 function windowResized(){
     canvasFourThreeRatio();
+
+    settingsPage();
 }
-/* 
-function setup() {
-    // calculate 4:3 aspect ratio that fits within the window
-    let w = windowWidth,
-        h = w * 3 / 4;
-    if (h > windowHeight) {
-        h = windowHeight;
-        w = h * 4 / 3;
-    }
-    createCanvas(w, h).position((windowWidth - w) / 2, (windowHeight - h) / 2);
-    background(200);
-    textSize(32);
-    textAlign(CENTER, CENTER);
-    text('Cinema', width / 2, height / 2);
-
-
-
-    settingScreen();
-}
-
-
-function windowResized() {
-    setup(); // recalculate canvas when screen resizes
-    
-}
-
-
-
-function settingScreen(){
-    let settingW , settingH;
-    settingW = windowWidth;
-    settingH = settingW * 3 / 4;
-    if(settingH > windowHeight) {
-        settingH = windowHeight;
-        settingW = settingH * 4 / 3;
-    }
-
-
-    fill('white');
-    noStroke();
-    rect( 20, 20,settingW - 40,settingH - 40, 20);
-    fill('black');
-    
-    let fontSize = 32 * (settingW/settingH);
-    textSize(fontSize);
-    textAlign(CENTER, CENTER);
-    text('All Your Base Are Belong TO Us', settingW / 2 , settingH / 2);
-   
-
-}
-
-*/
