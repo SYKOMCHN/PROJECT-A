@@ -1,8 +1,10 @@
+
 let baseWidth = 800;
 let baseHeight = 600;
 let canvasWidth, canvasHeight;
 let settingPagePop = false;
 let backgroundImage;
+let myButton;
 
 function preload(){
     backgroundImage = loadImage("assets/test_images/test_sprite_bg.png");
@@ -10,6 +12,23 @@ function preload(){
 
 function setup () { // functions that want to be setup and loaded first will go here
    canvasFourThreeRatio();  
+  
+   // calculate 4:3 aspect ratio that fits within the window
+   // let w = windowWidth,
+   //     h = w * 3 / 4;
+   // if (h > windowHeight) {
+   //     h = windowHeight;
+   //    w = h * 4 / 3;
+   // }
+   // createCanvas(w, h).position((windowWidth - w) / 2, (windowHeight - h) / 2);
+   // background(200);
+   // textSize(32);
+   // textAlign(CENTER, CENTER);
+   // text('Cinema', width / 2, height / 2);
+
+
+    // Make a test button
+    myButton = new Button(width / 2, height / 2 + 100, 150, 40, "test");
     
 }
 
@@ -17,6 +36,10 @@ function setup () { // functions that want to be setup and loaded first will go 
 function draw(){ //functions and designs will be placed here
     background(255);
     image(backgroundImage, 0 , 0, canvasWidth, canvasHeight);
+
+
+    // draw the button
+    myButton.display();
 
     push();
 
@@ -35,11 +58,9 @@ function canvasFourThreeRatio(){
     if (canvasHeight> windowHeight) {
         canvasHeight = windowHeight;
         canvasWidth  = canvasHeight * (baseWidth / baseHeight);
-    }
-
+      
     createCanvas(canvasWidth,canvasHeight).position((windowWidth - canvasWidth) / 2, (windowHeight - canvasHeight) / 2); 
 }
-
 
 
 function settingsPage(){ //modify the scaling.
@@ -92,6 +113,9 @@ function settingButton(){
 }
 
 function mousePressed(){
+  
+    if(myButton.isClicked()){
+        console.log("Button clicked!");
 
     if(settingPagePop == true){
 
@@ -109,7 +133,6 @@ function mousePressed(){
         }
     }
 
-    
 }
 
 function windowResized(){
