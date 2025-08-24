@@ -7,16 +7,29 @@ let creditsPagePop = false;
 let backgroundImage, settingBackground, creditBackground, levelBackground;
 let startBtn, settingBtn, creditBtn;
 
+
 function preload(){
     backgroundImage = loadImage("assets/test_images/test_sprite_bg2.png");
     settingBackground = loadImage("assets/test_images/test_sprite_bg3.png");
     creditBackground = loadImage("assets/test_images/test_sprite_bg4.png");
     levelBackground = loadImage("assets/test_images/test_sprite_bg5.png");
+
+    audioManager.preload();
 }
 
 function setup () { // functions that want to be setup and loaded first will go here
-   canvasFourThreeRatio();  
+    canvasFourThreeRatio();  
+    // lider to control volume (0-1)
+    volumeSlider = createSlider(0, 1, audioManager.musicVolume, 0.01);
+    volumeSlider.style('width', '200px');
+    volumeSlider.hide();
 
+    // update music and effects when slider moves
+    volumeSlider.input(() => {
+        const v = volumeSlider.value();
+        audioManager.setMusicVolume(v);
+        audioManager.setSFXVolume(v);
+    });
 }
 
 
@@ -33,7 +46,6 @@ function draw(){ //functions and designs will be placed here
     settingBtn.display();
    // creditBtn.display();
 
-    
 
     push();
     if (settingPagePop == true){
@@ -95,7 +107,9 @@ function levelButton(){
 
 function mousePressed(){
     console.log("On MousePressed");
-  
+    audioManager.playMusic("music");
+    
+
     if(startBtn.isClicked()){
         console.log("Button clicked!");
     }
@@ -111,11 +125,14 @@ function mousePressed(){
             mouseY < closeBtnY + closeBtnH 
                 
           ){
-                if (settingPagePop == true){settingPagePop = false;}
+                if (settingPagePop == true){settingPagePop = false; }
+                if (volumeSlider) {volumeSlider.hide();}
                 if (creditsPagePop == true) {creditsPagePop = false;}
                 if (levelPagePop == true) {levelPagePop = false;}
             } 
     }
+
+    audioManager.playSFX("click");
 }
 
 
