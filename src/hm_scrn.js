@@ -1,35 +1,22 @@
-
 let baseWidth = 800;
 let baseHeight = 600;
 let canvasWidth, canvasHeight;
 let settingPagePop = false;
-let backgroundImage;
-let myButton;
+let levelPagePop = false;
+let creditsPagePop = false;
+let backgroundImage, settingBackground, creditBackground, levelBackground;
+let startBtn, settingBtn, creditBtn;
 
 function preload(){
-    backgroundImage = loadImage("assets/test_images/test_sprite_bg.png");
+    backgroundImage = loadImage("assets/test_images/test_sprite_bg2.png");
+    settingBackground = loadImage("assets/test_images/test_sprite_bg3.png");
+    creditBackground = loadImage("assets/test_images/test_sprite_bg4.png");
+    levelBackground = loadImage("assets/test_images/test_sprite_bg5.png");
 }
 
 function setup () { // functions that want to be setup and loaded first will go here
    canvasFourThreeRatio();  
-  
-   // calculate 4:3 aspect ratio that fits within the window
-   // let w = windowWidth,
-   //     h = w * 3 / 4;
-   // if (h > windowHeight) {
-   //     h = windowHeight;
-   //    w = h * 4 / 3;
-   // }
-   // createCanvas(w, h).position((windowWidth - w) / 2, (windowHeight - h) / 2);
-   // background(200);
-   // textSize(32);
-   // textAlign(CENTER, CENTER);
-   // text('Cinema', width / 2, height / 2);
 
-
-    // Make a test button
-    myButton = new Button(width / 2, height / 2 + 100, 150, 40, "test");
-    
 }
 
 
@@ -37,21 +24,34 @@ function draw(){ //functions and designs will be placed here
     background(255);
     image(backgroundImage, 0 , 0, canvasWidth, canvasHeight);
 
+    //buttons
+    startBtn = new Button(canvasWidth / 2 , canvasHeight / 1.5 , canvasWidth / 10 , canvasHeight / 15, " test") ;
+    settingBtn = new Button ( canvasWidth / 1.25, canvasHeight / 1.10 , canvasWidth / 10, canvasHeight / 15, "setting");
+    //creditBtn = new Button ( canvasWidth / 2, canvasHeight / 1.10 . canvasWidth / 10 , canvasHeight / 15, "credit");
+ 
+    startBtn.display();
+    settingBtn.display();
+   // creditBtn.display();
 
-    // draw the button
-    myButton.display();
+    
 
     push();
-
     if (settingPagePop == true){
-    settingsPage();
+        push();
+        settingsPage();
     }
-
+    if (creditsPagePop == true){ 
+        push();
+        creditsPage();
+    }
+    if (levelPagePop == true){
+        levelsPage();
+    }
     pop();
 }
 
 function canvasFourThreeRatio(){
-     // calculate 4:3 aspect ratio that fits within the window
+        // calculate 4:3 aspect ratio that fits within the window
         canvasWidth = windowWidth,
         canvasHeight = canvasWidth * (baseHeight / baseWidth);
     
@@ -59,44 +59,13 @@ function canvasFourThreeRatio(){
         canvasHeight = windowHeight;
         canvasWidth  = canvasHeight * (baseWidth / baseHeight);
       
+    }
     createCanvas(canvasWidth,canvasHeight).position((windowWidth - canvasWidth) / 2, (windowHeight - canvasHeight) / 2); 
 }
-
-
-function settingsPage(){ //modify the scaling.
-    let settingButtonMargin = canvasWidth / 20 ; //*0.05
-    let settingBoxX = settingButtonMargin;
-    let settingBoxY = settingButtonMargin;
-    let settingBoxW = canvasWidth - 2 * settingButtonMargin;
-    let settingBoxH = canvasHeight - 2 * settingButtonMargin;
-
-    fill(255);
-    rect(settingBoxX, settingBoxY, settingBoxW, settingBoxH, canvasWidth / 50); //*0.02
-
-    fill(0);
-    textSize(canvasHeight / 15);
-    textAlign(CENTER,CENTER);
-    text('ManCine', canvasWidth / 2, canvasHeight / 2);
-
-    closeXButton();
-
-    mousePressed();
-
     
-}
-
-// standalone files in the future
-function infosPage(){}
-function levelsPage(){}
-
-
-
-
-
-
 function closeXButton(){
-
-    let closeBtnX = canvasWidth / 1.15; //*0115 
+    //escape buttom
+    let closeBtnX = canvasWidth / 1.15; 
     let closeBtnY = canvasWidth / 16;
     let closeBtnW = canvasWidth / 15;
     let closeBtnH = canvasHeight / 15;
@@ -104,39 +73,54 @@ function closeXButton(){
     fill('red');
     rect(closeBtnX,closeBtnY,closeBtnW,closeBtnH, canvasWidth / 75);
     return {closeBtnX,closeBtnY,closeBtnW,closeBtnH}; //makes these global
-
-    
+  
 }
 
 function settingButton(){
     settingPagePop = true;
+    console.log("Settings Page Button Clicked!");
 }
 
+function creditButton(){
+    creditsPagePop = true;
+    console.log("Credits Page Button Clicked!");
+}
+
+function levelButton(){
+    levelPagePop = true;
+    console.log("Credits Page Button Clicked!");
+}
+
+
+
 function mousePressed(){
+    console.log("On MousePressed");
   
-    if(myButton.isClicked()){
+    if(startBtn.isClicked()){
         console.log("Button clicked!");
+    }
 
-    if(settingPagePop == true){
 
-        let { closeBtnX,closeBtnY,closeBtnW,closeBtnH} = closeXButton();
+    let { closeBtnX,closeBtnY,closeBtnW,closeBtnH} = closeXButton(); 
 
+    if(settingPagePop || creditsPagePop || levelPagePop){
         if(
             mouseX > closeBtnX &&
             mouseX < closeBtnX + closeBtnW &&
             mouseY > closeBtnY &&
             mouseY < closeBtnY + closeBtnH 
-            //&& mouse pressed function
-        ) 
-        {
-            settingPagePop = false;
-        }
+                
+          ){
+                if (settingPagePop == true){settingPagePop = false;}
+                if (creditsPagePop == true) {creditsPagePop = false;}
+                if (levelPagePop == true) {levelPagePop = false;}
+            } 
     }
-
 }
+
 
 function windowResized(){
     canvasFourThreeRatio();
 
-   //settingsPage(); //optional?
+    
 }
