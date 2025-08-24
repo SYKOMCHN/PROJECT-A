@@ -22,11 +22,13 @@ class Button {
                     fill(100); // default color
                 }
             noStroke();
-            rect(this.x, this.y, this.w, this.h, 10);
+            rect(this.x, this.y, this.w, this.h, canvasWidth / 75);
         }
 
         // label
         fill(0);
+        textSize(canvasWidth / 50);
+        textAlign(CENTER,CENTER);
         text(this.label, this.x, this.y);
         pop();
     }

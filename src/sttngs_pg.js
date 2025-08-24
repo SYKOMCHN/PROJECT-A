@@ -1,52 +1,23 @@
-/* 
-function setup() {
-    // calculate 4:3 aspect ratio that fits within the window
-    let w = windowWidth,
-        h = w * 3 / 4;
-    if (h > windowHeight) {
-        h = windowHeight;
-        w = h * 4 / 3;
-    }
-    createCanvas(w, h).position((windowWidth - w) / 2, (windowHeight - h) / 2);
-    background(200);
-    textSize(32);
-    textAlign(CENTER, CENTER);
-    text('Cinema', width / 2, height / 2);
 
 
+function settingsPage(){ //modify the scaling.
+    let settingButtonMargin = canvasWidth / 20 ; //*0.05
+    let settingBoxX = settingButtonMargin;
+    let settingBoxY = settingButtonMargin;
+    let settingBoxW = canvasWidth - 2 * settingButtonMargin;
+    let settingBoxH = canvasHeight - 2 * settingButtonMargin;
 
-    settingScreen();
-}
+    
+  
+    image(settingBackground,settingBoxX, settingBoxY, settingBoxW, settingBoxH);
+    fill(0,0,0,1);
+    rect(0 , 0, canvasWidth, canvasHeight);
+    
+    fill(0);
+    textSize(canvasHeight / 15);
+    textAlign(CENTER,CENTER);
+    text('Goober Concept', canvasWidth / 2, canvasHeight / 2);
 
-
-function windowResized() {
-    setup(); // recalculate canvas when screen resizes
+    closeXButton();
     
 }
-
-
-
-function settingScreen(){
-    let settingW , settingH;
-    settingW = windowWidth;
-    settingH = settingW * 3 / 4;
-    if(settingH > windowHeight) {
-        settingH = windowHeight;
-        settingW = settingH * 4 / 3;
-    }
-
-
-    fill('white');
-    noStroke();
-    rect( 20, 20,settingW - 40,settingH - 40, 20);
-    fill('black');
-    
-    let fontSize = 32 * (settingW/settingH);
-    textSize(fontSize);
-    textAlign(CENTER, CENTER);
-    text('All Your Base Are Belong TO Us', settingW / 2 , settingH / 2);
-   
-
-}
-
-*/
